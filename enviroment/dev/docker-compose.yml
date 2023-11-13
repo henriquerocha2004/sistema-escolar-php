@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  sistema-escolar-app:
+    container_name: sistema-escolar-app
+    build: .
+    volumes:
+      - ../../:/app
+    ports:
+      - "8080:8000"
+    environment:
+       XDEBUG_MODE: debug
+       XDEBUG_CONFIG: client_host=host.docker.internal client_port=9003 idekey=VSCODE
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   
+  database:
+    image: postgres:alpine3.18
+    container_name: app-database
+    ports:
+      - "8081:5432" 
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=sistema_escolar
+      - POSTGRES_USER=root   
